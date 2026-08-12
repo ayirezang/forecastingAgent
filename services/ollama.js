@@ -1,11 +1,13 @@
 import { Ollama } from "ollama";
 import { readFileSync } from "fs";
+import express from "express";
+const router = express.Router();
 
 const ollamaClient = new Ollama({ host: "http://localhost:11434" });
 
-app.get("/forecast/:product", async (req, res) => {
+router.get("/forecast/:product", async (req, res) => {
   const { product } = req.params;
-  const inventoryData = readFileSync("./inventory.json", "utf-8");
+  const inventoryData = readFileSync("./services/data/inventory.json", "utf-8");
   const inventory = JSON.parse(inventoryData);
   const item = inventory.find((i) => i.product === product);
   if (!item) {
@@ -35,3 +37,4 @@ app.get("/forecast/:product", async (req, res) => {
     res.status(500).json({ error: "Error generating forecast" });
   }
 });
+export default router;

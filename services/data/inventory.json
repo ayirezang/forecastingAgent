@@ -1,11 +1,11 @@
 [
   {
-    "product": "widget",
+    "product": "slip-on",
     "current_stock": 50,
     "sales_last_4_weeks": [12, 15, 9, 19]
   },
   {
-    "product": "gadget",
+    "product": "hand-bags",
     "current_stock": 30,
     "sales_last_4_weeks": [5, 7, 6, 8]
   }
