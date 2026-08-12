@@ -1,11 +1,9 @@
 import { Ollama } from "ollama";
 import { readFileSync } from "fs";
-import express from "express";
-const router = express.Router();
 
 const ollamaClient = new Ollama({ host: "http://localhost:11434" });
 
-router.get("/forecast/:product", async (req, res) => {
+export const getForeCast = async (req, res) => {
   const { product } = req.params;
   const inventoryData = readFileSync("./services/data/inventory.json", "utf-8");
   const inventory = JSON.parse(inventoryData);
@@ -36,5 +34,4 @@ router.get("/forecast/:product", async (req, res) => {
     console.error("Error communicating with Ollama:", error);
     res.status(500).json({ error: "Error generating forecast" });
   }
-});
-export default router;
+};

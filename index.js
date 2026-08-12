@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 const app = express();
-import foreCasterRouter from "./services/ollama.js";
+
+import foreCastRouter from "./routes/forecastRoutes.js";
 
 //middleware
 
@@ -9,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-app.use(foreCasterRouter);
+app.use(foreCastRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
