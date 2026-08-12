@@ -4,4 +4,4 @@ const router = Router();
 
 router.get("/forecast/:product", getForeCast);
 
-export default Router;
+export default router;

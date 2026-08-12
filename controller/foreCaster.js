@@ -1,12 +1,25 @@
 import { Ollama } from "ollama";
 import { readFileSync } from "fs";
 
-const ollamaClient = new Ollama({ host: "http://localhost:11434" });
+const ollamaClient = new Ollama({ host: process.env.OLLAMA_HOST });
 
 export const getForeCast = async (req, res) => {
   const { product } = req.params;
-  const inventoryData = readFileSync("./services/data/inventory.json", "utf-8");
-  const inventory = JSON.parse(inventoryData);
+  if (!product || product.trim().length === 0) {
+    return res.status(400).json({ error: "product parameter is required" });
+  }
+  let inventory;
+  try {
+    const inventoryData = readFileSync(
+      "./services/data/inventory.json",
+      "utf-8",
+    );
+    inventory = JSON.parse(inventoryData);
+  } catch (error) {
+    console.error("error reading inventory file:", error);
+    return res.status(500).json({ error: "unable to load data" });
+  }
+
   const item = inventory.find((i) => i.product === product);
   if (!item) {
     return res.status(404).json({ error: "Product not found" });
